@@ -1,5 +1,9 @@
 com\projects\geolocalizacionDeIPs\MoneyConverter.class
+com\projects\geolocalizacionDeIPs\FailedAccessToCountryInformationException.class
 com\projects\geolocalizacionDeIPs\HaversineFormula.class
+com\projects\geolocalizacionDeIPs\LatitudeOrLongitudeOutOfRangeException.class
+com\projects\geolocalizacionDeIPs\CountryNameDiscoverer.class
+com\projects\geolocalizacionDeIPs\FailedAccessToCountryNameInformationException.class
 com\projects\geolocalizacionDeIPs\App.class
 com\projects\geolocalizacionDeIPs\Country.class
 com\projects\geolocalizacionDeIPs\REST\RESTConnector.class
