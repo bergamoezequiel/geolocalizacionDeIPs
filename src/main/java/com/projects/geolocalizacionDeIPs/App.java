@@ -142,6 +142,7 @@ public class App
     	    System.out.println("add status:"+mcc.add("PAISES", 0,"ARS").isDone());
     	    mcc.append("PAISES","-ARS");
     	    System.out.println("Get from Cache PAISES:"+mcc.get("PAISES"));
+    	    mcc.shutdown();
     	   
     	}  
     			   
