@@ -1,7 +1,9 @@
 package com.projects.geolocalizacionDeIPs;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
 import java.net.URL;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -11,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.projects.geolocalizacionDeIPs.Country;
 import org.springframework.web.client.RestTemplate;
 import org.json.*;
-
+import net.spy.memcached.MemcachedClient;  
 
 /**
  * Hello world!
@@ -103,7 +105,7 @@ public class App
     public static void main( String[] args )
     {
     	
-    	String IP="83.44.196.93";
+    /*	String IP="83.44.196.93";
     	printHeaderInformation(IP);
     	CountryNameDiscoverer countryNameDiscoverer= new CountryNameDiscoverer();
     	countryNameDiscoverer.initilize(IP);
@@ -115,9 +117,35 @@ public class App
     	HaversineFormula hFormula = new HaversineFormula();
     	System.out.println("Distancia a BS AS: "+hFormula.calculateDistance(-64, -34, country.getLongitud(),country.getLatitud())+ "kms");
     	printIdioma(country);
-    	printCurrencies(country);
+    	printCurrencies(country);*/
+    	
+    	
+    	
+    	      
+    	    // Connecting to Memcached server on localhost  
+    	    MemcachedClient mcc = null;
+			try {
+				mcc = new MemcachedClient(new InetSocketAddress("127.0.0.1", 11211));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+    	    System.out.println("Connection to server sucessfully");  
+    	   // mcc.delete("ARS");  
+    	    System.out.println("add status:"+mcc.add("ARS", 0,34).isDone());
+    	    int val=(int) mcc.get("ARS")+1;
+    	    System.out.println(val);  
+    	    mcc.delete("ARS");
+    	    System.out.println("Get from Cache ARS:"+mcc.get("ARS"));  
+    	    System.out.println("add status:"+mcc.add("ARS", 0, val++).isDone());
+    	    System.out.println("Get from Cache ARS:"+mcc.get("ARS"));
+    	    System.out.println("add status:"+mcc.add("PAISES", 0,"ARS").isDone());
+    	    mcc.append("PAISES","-ARS");
+    	    System.out.println("Get from Cache PAISES:"+mcc.get("PAISES"));
+    	   
+    	}  
     			   
    
     	
-   }
+   
 }
