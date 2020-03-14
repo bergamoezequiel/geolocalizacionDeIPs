@@ -1,4 +1,5 @@
 com\projects\geolocalizacionDeIPs\MoneyConverter.class
+com\projects\geolocalizacionDeIPs\statisticsManager.class
 com\projects\geolocalizacionDeIPs\FailedAccessToCountryInformationException.class
 com\projects\geolocalizacionDeIPs\HaversineFormula.class
 com\projects\geolocalizacionDeIPs\LatitudeOrLongitudeOutOfRangeException.class
