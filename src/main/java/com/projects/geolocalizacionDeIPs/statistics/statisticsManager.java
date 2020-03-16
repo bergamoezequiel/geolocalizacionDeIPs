@@ -11,10 +11,14 @@ public class statisticsManager {
 		stPersister = stPersisterNew;
 	};
 
-	public static void stdoutPrint(String[] masLejano, String[] masCercano) {
+	public static void stdoutPrint(String[] farest, String[] nearest) {
 		System.out.println("(PAIS,DISTANCIA,INVOCACIONES)");
-		System.out.println("(" + masLejano[0] + "," + masLejano[1] + "," + masLejano[2] + ")");
-		System.out.println("(" + masCercano[0] + "," + masCercano[1] + "," + masCercano[2] + ")");
+		System.out.println("(" + farest[0] + "," + farest[1] + "," + farest[2] + ")");
+		System.out.println("(" + nearest[0] + "," + nearest[1] + "," + nearest[2] + ")");
+		double distanceFarest=Integer.valueOf(farest[1])*Integer.valueOf(farest[2]);
+		double distanceNearest=Integer.valueOf(nearest[1])*Integer.valueOf(nearest[2]);
+		double averageDistance= (distanceFarest+distanceNearest)/(Integer.valueOf(farest[2])+Integer.valueOf(nearest[2]));
+		System.out.println("Distancia promedio: "+averageDistance);
 
 	}
 
@@ -34,17 +38,17 @@ public class statisticsManager {
 	}
 
 	public static void initializeStatistics(String countryName, int distanceBSAS) {
-		String[] masLejano = new String[3];
-		String[] masCercano = new String[3];
-		masLejano[0] = countryName;
-		masCercano[0] = countryName;
-		masLejano[1] = String.valueOf(distanceBSAS);
-		masCercano[1] = String.valueOf(distanceBSAS);
-		masLejano[2] = "1";
-		masCercano[2] = "1";
+		String[] farest = new String[3];
+		String[] nearest = new String[3];
+		farest[0] = countryName;
+		nearest[0] = countryName;
+		farest[1] = String.valueOf(distanceBSAS);
+		nearest[1] = String.valueOf(distanceBSAS);
+		farest[2] = "1";
+		nearest[2] = "1";
 		statisticsPOJO stPOJO = new statisticsPOJO();
-		stPOJO.setFar(masLejano);
-		stPOJO.setNear(masCercano);
+		stPOJO.setFar(farest);
+		stPOJO.setNear(nearest);
 		stPersister.saveStatistics(stPOJO);
 
 	}
@@ -61,50 +65,49 @@ public class statisticsManager {
 	}
 
 	private static String[] saveStatisticsLongerDistance(String CountryName, int distanceBSAS) throws IOException {
-		String[] masLejano = new String[3];
+		String[] farest = new String[3];
 
 		if (Integer.parseInt(stPOJOsm.getFar()[1]) < distanceBSAS) {
-			masLejano[0] = CountryName;
-			masLejano[1] = String.valueOf(distanceBSAS);
-			masLejano[2] = String.valueOf(1);
+			farest[0] = CountryName;
+			farest[1] = String.valueOf(distanceBSAS);
+			farest[2] = String.valueOf(1);
 		} else {
 			// String.co
 			if (Integer.parseInt(stPOJOsm.getFar()[1]) == distanceBSAS && stPOJOsm.getFar()[0].equals(CountryName)) {
-				masLejano[0] = CountryName;
-				masLejano[1] = String.valueOf(distanceBSAS);
-				masLejano[2] = String.valueOf(Integer.valueOf(stPOJOsm.getFar()[2]) + 1);
+				farest[0] = CountryName;
+				farest[1] = String.valueOf(distanceBSAS);
+				farest[2] = String.valueOf(Integer.valueOf(stPOJOsm.getFar()[2]) + 1);
 			} else {
-				masLejano[0] = stPOJOsm.getFar()[0];
-				masLejano[1] = stPOJOsm.getFar()[1];
-				masLejano[2] = stPOJOsm.getFar()[2];
+				farest[0] = stPOJOsm.getFar()[0];
+				farest[1] = stPOJOsm.getFar()[1];
+				farest[2] = stPOJOsm.getFar()[2];
 
 			}
 
 		}
-		return masLejano;
+		return farest;
 	}
 
 	private static String[] saveStatisticsShorterDistance(String CountryName, int distanceBSAS) throws IOException {
-		String[] masCercano = new String[3];
+		String[] nearest = new String[3];
 		if (Integer.parseInt(stPOJOsm.getNear()[1]) > distanceBSAS) {
-			masCercano[0] = CountryName;
-			masCercano[1] = String.valueOf(distanceBSAS);
-			masCercano[2] = String.valueOf(1);
+			nearest[0] = CountryName;
+			nearest[1] = String.valueOf(distanceBSAS);
+			nearest[2] = String.valueOf(1);
 		} else {
 			if (Integer.parseInt(stPOJOsm.getNear()[1]) == distanceBSAS && stPOJOsm.getNear()[0].equals(CountryName)) {
-				System.out.println("entra aca");
-				masCercano[0] = CountryName;
-				masCercano[1] = String.valueOf(distanceBSAS);
-				masCercano[2] = String.valueOf(Integer.valueOf(stPOJOsm.getNear()[2]) + 1);
+				nearest[0] = CountryName;
+				nearest[1] = String.valueOf(distanceBSAS);
+				nearest[2] = String.valueOf(Integer.valueOf(stPOJOsm.getNear()[2]) + 1);
 
 			} else {
-				masCercano[0] = stPOJOsm.getNear()[0];
-				masCercano[1] = stPOJOsm.getNear()[1];
-				masCercano[2] = stPOJOsm.getNear()[2];
+				nearest[0] = stPOJOsm.getNear()[0];
+				nearest[1] = stPOJOsm.getNear()[1];
+				nearest[2] = stPOJOsm.getNear()[2];
 			}
 
 		}
-		return masCercano;
+		return nearest;
 	}
 
 	public static void updateStatistics(String CountryName, int distanceBSAS) {
