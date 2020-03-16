@@ -1,5 +1,4 @@
-com\projects\geolocalizacionDeIPs\MoneyConverterUnitTest.class
-com\projects\geolocalizacionDeIPs\AppTest.class
-com\projects\geolocalizacionDeIPs\CountryUnitTest.class
-com\projects\geolocalizacionDeIPs\HaversineFormulaUnitTest.class
-com\projects\geolocalizacionDeIPs\CountryNameDiscovererUnitTest.class
+com\projects\geolocalizacionDeIPs\DAOs\CountryNameDiscovererUnitTest.class
+com\projects\geolocalizacionDeIPs\DAOs\CountryUnitTest.class
+com\projects\geolocalizacionDeIPs\Tools\HaversineFormulaUnitTest.class
+com\projects\geolocalizacionDeIPs\DAOs\MoneyConverterUnitTest.class

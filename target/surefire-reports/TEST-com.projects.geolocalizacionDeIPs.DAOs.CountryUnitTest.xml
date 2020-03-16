@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0.009" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0.004" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,7 +18,7 @@
     <property name="user.country" value="AR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\java\jdk1.8.0_191\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\Usuario\AppData\Local\Temp\surefire7756543911718513776\surefirebooter4945172567189681629.jar C:\Users\Usuario\AppData\Local\Temp\surefire7756543911718513776 2020-03-14T21-05-51_128-jvmRun1 surefire7366342058859300901tmp surefire_01351788505030904323tmp"/>
+    <property name="sun.java.command" value="C:\Users\Usuario\AppData\Local\Temp\surefire6046420962390639332\surefirebooter7113288334448294093.jar C:\Users\Usuario\AppData\Local\Temp\surefire6046420962390639332 2020-03-16T00-26-46_393-jvmRun1 surefire2236325539923524251tmp surefire_06501220776546494689tmp"/>
     <property name="surefire.test.class.path" value="C:\Users\Usuario\eclipse-workspace\geolocalizacionDeIPs\target\test-classes;C:\Users\Usuario\eclipse-workspace\geolocalizacionDeIPs\target\classes;C:\Users\Usuario\.m2\repository\net\spy\spymemcached\2.12.3\spymemcached-2.12.3.jar;C:\Users\Usuario\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Usuario\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Usuario\.m2\repository\org\springframework\spring-web\3.0.2.RELEASE\spring-web-3.0.2.RELEASE.jar;C:\Users\Usuario\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\Usuario\.m2\repository\org\springframework\spring-beans\3.0.2.RELEASE\spring-beans-3.0.2.RELEASE.jar;C:\Users\Usuario\.m2\repository\org\springframework\spring-context\3.0.2.RELEASE\spring-context-3.0.2.RELEASE.jar;C:\Users\Usuario\.m2\repository\org\springframework\spring-aop\3.0.2.RELEASE\spring-aop-3.0.2.RELEASE.jar;C:\Users\Usuario\.m2\repository\org\springframework\spring-expression\3.0.2.RELEASE\spring-expression-3.0.2.RELEASE.jar;C:\Users\Usuario\.m2\repository\org\springframework\spring-asm\3.0.2.RELEASE\spring-asm-3.0.2.RELEASE.jar;C:\Users\Usuario\.m2\repository\org\springframework\spring-core\3.0.2.RELEASE\spring-core-3.0.2.RELEASE.jar;C:\Users\Usuario\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\Usuario\.m2\repository\org\mockito\mockito-all\1.9.5\mockito-all-1.9.5.jar;C:\Users\Usuario\.m2\repository\org\json\json\20190722\json-20190722.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Usuario"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\Usuario\AppData\Local\Temp\surefire7756543911718513776\surefirebooter4945172567189681629.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Usuario\AppData\Local\Temp\surefire6046420962390639332\surefirebooter7113288334448294093.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\java\jdk1.8.0_191\jre\lib\resources.jar;C:\Program Files\java\jdk1.8.0_191\jre\lib\rt.jar;C:\Program Files\java\jdk1.8.0_191\jre\lib\sunrsasign.jar;C:\Program Files\java\jdk1.8.0_191\jre\lib\jsse.jar;C:\Program Files\java\jdk1.8.0_191\jre\lib\jce.jar;C:\Program Files\java\jdk1.8.0_191\jre\lib\charsets.jar;C:\Program Files\java\jdk1.8.0_191\jre\lib\jfr.jar;C:\Program Files\java\jdk1.8.0_191\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -60,11 +60,11 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="shouldHasEspañaAsNativeName" classname="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0"/>
-  <testcase name="shouldHas135AsLatitude" classname="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0"/>
-  <testcase name="shouldHasTwoCurrencies" classname="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0"/>
-  <testcase name="shouldHasTwoLenguages" classname="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0"/>
-  <testcase name="shouldHasNegative4AsLongitude" classname="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0"/>
-  <testcase name="shouldHasTwoTimeZones" classname="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0"/>
-  <testcase name="shouldThrownExceptionDuringInitialization" classname="com.projects.geolocalizacionDeIPs.CountryUnitTest" time="0.001"/>
+  <testcase name="shouldHasEspañaAsNativeName" classname="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0"/>
+  <testcase name="shouldHas135AsLatitude" classname="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0"/>
+  <testcase name="shouldHasTwoCurrencies" classname="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0"/>
+  <testcase name="shouldHasTwoLenguages" classname="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0"/>
+  <testcase name="shouldHasNegative4AsLongitude" classname="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0"/>
+  <testcase name="shouldHasTwoTimeZones" classname="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0"/>
+  <testcase name="shouldThrownExceptionDuringInitialization" classname="com.projects.geolocalizacionDeIPs.DAOs.CountryUnitTest" time="0"/>
 </testsuite>
