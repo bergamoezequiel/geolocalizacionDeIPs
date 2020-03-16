@@ -105,7 +105,7 @@ public class App {
 			if (anErrorOccurredConsultingCountryInformation == false) {
 				printHora(country);
 				HaversineFormula hFormula = new HaversineFormula();
-				int distanceBSAS = hFormula.calculateDistance(-64, -34, country.getLongitud(), country.getLatitud());
+				int distanceBSAS = hFormula.calculateDistance(-64, -34, country.getLongitude(), country.getLatitude());
 				printIdioma(country);
 				printCurrencies(country);
 				statisticsManager.updateStatistics(country.getNativeName(), distanceBSAS);

@@ -42,13 +42,13 @@ public class CountryUnitTest {
 	@Test
     public void shouldHas135AsLatitude()
     {
-        assertEquals(13.5,country.getLatitud(),0.00001);
+        assertEquals(13.5,country.getLatitude(),0.00001);
     }
 	
 	@Test
     public void shouldHasNegative4AsLongitude()
     {
-        assertEquals(-4,country.getLongitud(),0.00001);
+        assertEquals(-4,country.getLongitude(),0.00001);
     }
 	
 	@Test

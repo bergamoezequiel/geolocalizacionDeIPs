@@ -1,49 +1,42 @@
 package com.projects.geolocalizacionDeIPs.DAOs;
 
 import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-public class MoneyConverter  {
+public class MoneyConverter {
 
 	RestTemplate restTemplate;
-	
-	
-	
+
+	private final String URL = "http://data.fixer.io/api/latest?access_key=efdb9ec76c7849f67bf7b77bdb873b02";
+
 	public MoneyConverter() {
-		this.restTemplate= new RestTemplate();
-		
+		this.restTemplate = new RestTemplate();
 	}
-	
+
 	public MoneyConverter(RestTemplate restTemplate) {
-		this.restTemplate=restTemplate;
+		this.restTemplate = restTemplate;
 	}
-	
-	public float calculateExchange(String fromCurrency,String toCurrency) {
-		float cotizacionToCurrenci;
-	 	   if ( fromCurrency== toCurrency) {
-	 		return 1;
-	 	 } 
-		
-		final String uri = "http://127.0.0.1:8080/eze";
-         
- 	    RestTemplate restTemplate = new RestTemplate();
- 	    String result = restTemplate.getForObject(uri, String.class);
- 	   // 
- 	   JSONObject root= new JSONObject (result);
- 	    JSONObject rates=root.getJSONObject("rates");
- 	   //System.out.println(rates);
- 	  
- 	 
- 	   cotizacionToCurrenci=rates.getFloat(toCurrency);
- 	  
- 	  float cotizacionFromCurrency=rates.getFloat(fromCurrency);
- 	  // System.out.println(cotizacionFromCurrency);
- 	  // System.out.println(cotizacionToCurrenci);
- 	  
- 	  
- 		   return ((1/cotizacionToCurrenci)*cotizacionFromCurrency);
- 		   
- 	   
+
+	private JSONObject fetchPriceData() throws FailedAccessToExchangeInformationException {
+		ResponseEntity<String> result = restTemplate.getForEntity(URL, String.class);
+		if (result.getStatusCode().value() != 200) {
+			throw (new FailedAccessToExchangeInformationException());
+		}
+		JSONObject root = new JSONObject(result.getBody());
+		return root.getJSONObject("rates");
 	}
-	
+
+	public float calculateExchange(String fromCurrency, String toCurrency) {
+		float priceToCurrency;
+		if (fromCurrency == toCurrency) {
+			return 1;
+		}
+		JSONObject rates = fetchPriceData();
+		priceToCurrency = rates.getFloat(toCurrency);
+		float priceFromCurrency = rates.getFloat(fromCurrency);
+		return ((1 / priceToCurrency) * priceFromCurrency);
+
+	}
+
 }
