@@ -5,32 +5,22 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-
-import org.springframework.web.client.RestTemplate;
-
 import com.projects.geolocalizacionDeIPs.DAOs.Country;
 import com.projects.geolocalizacionDeIPs.DAOs.CountryNameDiscoverer;
 import com.projects.geolocalizacionDeIPs.DAOs.MoneyConverter;
 import com.projects.geolocalizacionDeIPs.Tools.HaversineFormula;
+import com.projects.geolocalizacionDeIPs.statistics.FilePersister;
+import com.projects.geolocalizacionDeIPs.statistics.StatisticPersister;
 import com.projects.geolocalizacionDeIPs.statistics.statisticsManager;
 
-import org.json.*;
-import net.spy.memcached.MemcachedClient;
-
-/**
- * Hello world!
- *
- */
 
 public class App {
 	public static void printCurrencies(Country country) {
 		System.out.println("Monedas: ");
 		ArrayList<String> currencies = country.getCurrencies();
 		for (int i = 0; i < currencies.size(); i++) {
-			// System.out.println(currencies.get(i));
 			MoneyConverter mConverter = new MoneyConverter();
 			float Conversor = mConverter.calculateExchange("USD", currencies.get(i));
-			// System.out.println(Conversor);
 			System.out.println(currencies.get(i) + " ( 1 " + currencies.get(i) + " = " + Conversor + " U$S )");
 		}
 	}
@@ -47,16 +37,12 @@ public class App {
 	public static void printHora(Country country) {
 		System.out.println("Hora: ");
 		Instant instant = Instant.now();
-		// System.out.println(instant.toString());
-		// ZoneOffset zoneOffset = ZoneOffset.of( "+01:00" );
-		// OffsetDateTime odt = OffsetDateTime.ofInstant( instant , zoneOffset );
 		ArrayList<String> timeZones = country.getTimeZones();
 		for (int i = 0; i < timeZones.size(); i++) {
 			if (timeZones.get(i).length() == 3) {
 				System.out.println("   " + instant.toString().substring(11));
 			} else {
 				String onlyNumber = timeZones.get(i).substring(3);
-				// System.out.println(onlyNumber);
 				ZoneOffset zoneOffset = ZoneOffset.of(onlyNumber);
 				OffsetDateTime odt = OffsetDateTime.ofInstant(instant, zoneOffset);
 				System.out.println("   " + odt.toString().substring(11));
@@ -108,6 +94,8 @@ public class App {
 				int distanceBSAS = hFormula.calculateDistance(-64, -34, country.getLongitude(), country.getLatitude());
 				printIdioma(country);
 				printCurrencies(country);
+				StatisticPersister stPersister = new FilePersister("statistics.txt");
+				statisticsManager.setStatisticPersister(stPersister);
 				statisticsManager.updateStatistics(country.getNativeName(), distanceBSAS);
 
 			}
@@ -118,6 +106,8 @@ public class App {
 	public static void main(String[] args) {
 
 		if (args[0].equals("-e")) {
+			StatisticPersister stPersister = new FilePersister("statistics.txt");
+			statisticsManager.setStatisticPersister(stPersister);
 			statisticsManager.show();
 		} else {
 			showInformationByIP(args[0]);

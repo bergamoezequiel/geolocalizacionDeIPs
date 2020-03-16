@@ -1,1 +1,1 @@
-java -cp ./dependencies/json-20190722.jar:./dependencies/spring-web-3.0.2.RELEASE.jar:./dependencies/spring-core-3.0.2.RELEASE.jar:./dependencies/commons-logging-1.1.1.jar:./target/geolocalizacionDeIPs-0.0.1-SNAPSHOT.jar com.projects.geolocalizacionDeIPs.App
+java -cp ./dependencies/json-20190722.jar:./dependencies/spring-web-3.0.2.RELEASE.jar:./dependencies/spring-core-3.0.2.RELEASE.jar:./dependencies/commons-logging-1.1.1.jar:./target/geolocalizacionDeIPs-0.0.1-SNAPSHOT.jar com.projects.geolocalizacionDeIPs.App $1

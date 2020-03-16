@@ -1,127 +1,115 @@
 package com.projects.geolocalizacionDeIPs.statistics;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class statisticsManager {
 
-	public static String[] masLejano = null;
-	public static String[] masCercano = null;
+	public static StatisticPersister stPersister;
+	static statisticsPOJO stPOJOsm = null;
+
+	public static void setStatisticPersister(StatisticPersister stPersisterNew) {
+		stPersister = stPersisterNew;
+	};
 
 	public static void stdoutPrint(String[] masLejano, String[] masCercano) {
 		System.out.println("(PAIS,DISTANCIA,INVOCACIONES)");
-		System.out.println("("+masLejano[0] + "," + masLejano[1] + "," + masLejano[2]+")");
-		System.out.println("("+masCercano[0] + "," + masCercano[1] + "," + masCercano[2]+")");
+		System.out.println("(" + masLejano[0] + "," + masLejano[1] + "," + masLejano[2] + ")");
+		System.out.println("(" + masCercano[0] + "," + masCercano[1] + "," + masCercano[2] + ")");
 
 	}
 
 	public static void show() {
-		fetchData();
-		stdoutPrint(masLejano, masCercano);
+		stdoutPrint(stPersister.fetchData().getFar(), stPersister.fetchData().getNear());
 
 	}
 
 	public static void fetchData() {
-		File file = new File("append2.txt");
-		try {
-			FileReader fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);
-			masLejano = br.readLine().split("-");
-			masCercano = br.readLine().split("-");
-			br.close();
-			fr.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//stdoutPrint(masLejano, masCercano);
+
+		stPOJOsm = stPersister.fetchData();
 
 	}
 
-	public static void initializeStatistics(String countryName, int distanceBSAS, File file) {
-		try {
-			FileWriter fw = new FileWriter(file, false);
-			BufferedWriter bw = new BufferedWriter(fw);
+	public static void initializeStatistics(String countryName, int distanceBSAS) {
+		String[] masLejano = new String[3];
+		String[] masCercano = new String[3];
+		masLejano[0] = countryName;
+		masCercano[0] = countryName;
+		masLejano[1] = String.valueOf(distanceBSAS);
+		masCercano[1] = String.valueOf(distanceBSAS);
+		masLejano[2] = "1";
+		masCercano[2] = "1";
+		statisticsPOJO stPOJO = new statisticsPOJO();
+		stPOJO.setFar(masLejano);
+		stPOJO.setNear(masCercano);
+		stPersister.saveStatistics(stPOJO);
 
-			System.out.println("entra");
-
-			bw.write(countryName + "-" + distanceBSAS + "-" + 1 + System.getProperty("line.separator"));
-			bw.write(countryName + "-" + distanceBSAS + "-" + 1 + System.getProperty("line.separator"));
-
-			bw.close();
-			fw.close();
-		} catch (Exception e) {
-		}
 	}
 
-	public static void analize(String CountryName, int distanceBSAS, File file) {
+	public static void analize(String CountryName, int distanceBSAS) {
 		try {
-			FileWriter fw = new FileWriter(file, false);
-			BufferedWriter bw = new BufferedWriter(fw);
-			saveStatisticsLongerDistance(CountryName,distanceBSAS,bw);
-			saveStatisticsShorterDistance(CountryName,distanceBSAS,bw);
-
-		
-			bw.close();
-			fw.close();
+			statisticsPOJO stPOJO = new statisticsPOJO();
+			stPOJO.setFar(saveStatisticsLongerDistance(CountryName, distanceBSAS));
+			stPOJO.setNear(saveStatisticsShorterDistance(CountryName, distanceBSAS));
+			stPersister.saveStatistics(stPOJO);
 
 		} catch (Exception e) {
 		}
 	}
-	
-	private static void saveStatisticsLongerDistance(String CountryName,int distanceBSAS,BufferedWriter bw) throws IOException {
-		if (Integer.parseInt(masLejano[1]) < distanceBSAS) {
-			bw.write(CountryName + "-" + distanceBSAS + "-" + 1 + System.getProperty("line.separator"));
-			System.out.println("entra1");
+
+	private static String[] saveStatisticsLongerDistance(String CountryName, int distanceBSAS) throws IOException {
+		String[] masLejano = new String[3];
+
+		if (Integer.parseInt(stPOJOsm.getFar()[1]) < distanceBSAS) {
+			masLejano[0] = CountryName;
+			masLejano[1] = String.valueOf(distanceBSAS);
+			masLejano[2] = String.valueOf(1);
 		} else {
 			// String.co
-			if (Integer.parseInt(masLejano[1]) == distanceBSAS && masLejano[0].equals(CountryName)) {
-
-				bw.write(CountryName + "-" + distanceBSAS + "-" + (Integer.parseInt(masLejano[2]) + 1)
-						+ System.getProperty("line.separator"));
-
+			if (Integer.parseInt(stPOJOsm.getFar()[1]) == distanceBSAS && stPOJOsm.getFar()[0].equals(CountryName)) {
+				masLejano[0] = CountryName;
+				masLejano[1] = String.valueOf(distanceBSAS);
+				masLejano[2] = String.valueOf(Integer.valueOf(stPOJOsm.getFar()[2]) + 1);
 			} else {
-
-				bw.write(masLejano[0] + "-" + masLejano[1] + "-" + masLejano[2]
-						+ System.getProperty("line.separator"));
+				masLejano[0] = stPOJOsm.getFar()[0];
+				masLejano[1] = stPOJOsm.getFar()[1];
+				masLejano[2] = stPOJOsm.getFar()[2];
 
 			}
 
 		}
+		return masLejano;
 	}
-	
-	private static void saveStatisticsShorterDistance(String CountryName,int distanceBSAS,BufferedWriter bw) throws IOException{
-		if (Integer.parseInt(masCercano[1]) > distanceBSAS) {
-			bw.write(CountryName + "-" + distanceBSAS + "-" + 1 + System.getProperty("line.separator"));
-		} else {
-			if (Integer.parseInt(masCercano[1]) == distanceBSAS && masCercano[0].equals(CountryName)) {
 
-				bw.write(CountryName + "-" + distanceBSAS + "-" + (Integer.parseInt(masCercano[2]) + 1)
-						+ System.getProperty("line.separator"));
+	private static String[] saveStatisticsShorterDistance(String CountryName, int distanceBSAS) throws IOException {
+		String[] masCercano = new String[3];
+		if (Integer.parseInt(stPOJOsm.getNear()[1]) > distanceBSAS) {
+			masCercano[0] = CountryName;
+			masCercano[1] = String.valueOf(distanceBSAS);
+			masCercano[2] = String.valueOf(1);
+		} else {
+			if (Integer.parseInt(stPOJOsm.getNear()[1]) == distanceBSAS && stPOJOsm.getNear()[0].equals(CountryName)) {
+				System.out.println("entra aca");
+				masCercano[0] = CountryName;
+				masCercano[1] = String.valueOf(distanceBSAS);
+				masCercano[2] = String.valueOf(Integer.valueOf(stPOJOsm.getNear()[2]) + 1);
 
 			} else {
-				bw.write(masCercano[0] + "-" + masCercano[1] + "-" + masCercano[2]
-						+ System.getProperty("line.separator"));
+				masCercano[0] = stPOJOsm.getNear()[0];
+				masCercano[1] = stPOJOsm.getNear()[1];
+				masCercano[2] = stPOJOsm.getNear()[2];
 			}
 
 		}
+		return masCercano;
 	}
 
 	public static void updateStatistics(String CountryName, int distanceBSAS) {
 		try {
-			File file = new File("append2.txt");
-			boolean existe = file.exists();
-
-			if (existe == false) {
-				initializeStatistics(CountryName, distanceBSAS, file);
+			if (stPersister.isEmpty() == false) {	
+				initializeStatistics(CountryName, distanceBSAS);
 			} else {
 				fetchData();
-				analize(CountryName, distanceBSAS, file);
-
+				analize(CountryName, distanceBSAS);
 			}
 
 		}
