@@ -36,7 +36,7 @@ public class CountryUnitTest {
 	@Test
     public void shouldHasEspañaAsNativeName()
     {
-        assertEquals("España",country.getNativeName());
+        assertEquals("Spain",country.getName());
     }
 	
 	@Test
@@ -56,8 +56,8 @@ public class CountryUnitTest {
     {
 		ArrayList<String> languages = country.getlanguagues();
         assertEquals(2,languages.size());    
-        assertEquals("Español (es)",languages.get(0));
-        assertEquals("Avañe'ẽ (gn)",languages.get(1));
+        assertEquals("Spanish (es)",languages.get(0));
+        assertEquals("Guaraní (gn)",languages.get(1));
     }
 	
 	@Test
