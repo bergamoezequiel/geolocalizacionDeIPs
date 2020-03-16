@@ -3,9 +3,10 @@ docker pull harisekhon/ubuntu-java:latest
 cd ${projectRootFolder}
 docker build -t entregaeb .
 docker run -it entregaeb
-__________________________________________-
+_______________________
+
 Luego dentro del docker
-________________________________
+_______________________
 
 cd geolocalizacionDeIPs 
 Estadistica : ./geolocalizationService.sh -e
