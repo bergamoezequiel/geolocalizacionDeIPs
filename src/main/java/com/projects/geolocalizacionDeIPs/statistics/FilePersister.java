@@ -52,7 +52,7 @@ public class FilePersister implements StatisticPersister {
 
 	@Override
 	public boolean isEmpty() {
-		return file.exists()==true;
+		return (file.exists()==false);
 	};
 
 }
