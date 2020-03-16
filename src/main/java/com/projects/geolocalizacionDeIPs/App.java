@@ -1,6 +1,5 @@
 package com.projects.geolocalizacionDeIPs;
 
-
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -12,7 +11,6 @@ import com.projects.geolocalizacionDeIPs.Tools.HaversineFormula;
 import com.projects.geolocalizacionDeIPs.statistics.FilePersister;
 import com.projects.geolocalizacionDeIPs.statistics.StatisticPersister;
 import com.projects.geolocalizacionDeIPs.statistics.statisticsManager;
-
 
 public class App {
 	public static void printCurrencies(Country country) {
@@ -104,13 +102,16 @@ public class App {
 	}
 
 	public static void main(String[] args) {
-
-		if (args[0].equals("-e")) {
-			StatisticPersister stPersister = new FilePersister("statistics.txt");
-			statisticsManager.setStatisticPersister(stPersister);
-			statisticsManager.show();
+		if (args.length == 0) {
+			System.out.println("Debe ingresar el comando -e o un numero de IP");
 		} else {
-			showInformationByIP(args[0]);
+			if (args[0].equals("-e")) {
+				StatisticPersister stPersister = new FilePersister("statistics.txt");
+				statisticsManager.setStatisticPersister(stPersister);
+				statisticsManager.show();
+			} else {
+				showInformationByIP(args[0]);
+			}
 		}
 
 	}
