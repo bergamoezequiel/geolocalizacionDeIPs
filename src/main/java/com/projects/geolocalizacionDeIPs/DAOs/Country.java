@@ -13,7 +13,7 @@ public class Country {
 	
 	private RestTemplate restTemplate;
 
-	private String nativeName = null;
+	private String name = null;
 
 	private double latitude;
 
@@ -33,8 +33,8 @@ public class Country {
 		this.restTemplate = restTemp;
 	}
 
-	public String getNativeName() {
-		return this.nativeName;
+	public String getName() {
+		return this.name;
 	}
 
 	public ArrayList<String> getTimeZones() {
@@ -62,7 +62,7 @@ public class Country {
 		JSONArray jArray = country.getJSONArray("languages");
 		for (int i = 0; i < jArray.length(); i++) {
 			JSONObject object = jArray.getJSONObject(i);
-			String nativeName = object.getString("nativeName");
+			String nativeName = object.getString("name");
 			String ISO639_1 = object.getString("iso639_1");
 			languages.add(nativeName + " (" + ISO639_1 + ")");
 		}
@@ -97,12 +97,15 @@ public class Country {
 
 	public void Initialize(String threeLetterscode) throws FailedAccessToCountryInformationException {
 		ResponseEntity<String> result;
+		
+		/*Esta consulta podría cachearse ya que son datos que no cambian con frecuencia.
+		 *Posible implementación con memcache */
 		result = restTemplate.getForEntity(baseUri + threeLetterscode, String.class);
 		if (result.getStatusCode().value() != 200) {
 			throw (new FailedAccessToCountryInformationException());
 		}
 		JSONObject root = new JSONObject(result.getBody());
-		this.nativeName = root.getString("nativeName");
+		this.name = root.getString("name");
 
 		/* Estos llamados podrían paralelizarse para mejorar la eficiencia */
 		this.parseLanguages(root);

@@ -96,7 +96,7 @@ public class App {
 				printCurrencies(country);
 				StatisticPersister stPersister = new FilePersister("statistics.txt");
 				statisticsManager.setStatisticPersister(stPersister);
-				statisticsManager.updateStatistics(country.getNativeName(), distanceBSAS);
+				statisticsManager.updateStatistics(country.getName(), distanceBSAS);
 
 			}
 
