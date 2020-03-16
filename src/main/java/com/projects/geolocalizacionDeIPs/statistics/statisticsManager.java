@@ -19,8 +19,12 @@ public class statisticsManager {
 	}
 
 	public static void show() {
-		stdoutPrint(stPersister.fetchData().getFar(), stPersister.fetchData().getNear());
-
+		if (stPersister.isEmpty() == false) {
+			stdoutPrint(stPersister.fetchData().getFar(), stPersister.fetchData().getNear());
+		}
+		else {
+			System.out.println("No Existe estadistica aun");
+		}
 	}
 
 	public static void fetchData() {
@@ -105,7 +109,7 @@ public class statisticsManager {
 
 	public static void updateStatistics(String CountryName, int distanceBSAS) {
 		try {
-			if (stPersister.isEmpty() == false) {	
+			if (stPersister.isEmpty() == false) {
 				initializeStatistics(CountryName, distanceBSAS);
 			} else {
 				fetchData();
