@@ -109,7 +109,7 @@ public class statisticsManager {
 
 	public static void updateStatistics(String CountryName, int distanceBSAS) {
 		try {
-			if (stPersister.isEmpty() == false) {
+			if (stPersister.isEmpty() == true) {
 				initializeStatistics(CountryName, distanceBSAS);
 			} else {
 				fetchData();
